@@ -1,0 +1,53 @@
+body, root, ul {
+    margin: 0 !important;
+    padding: 0 !important;
+    font-family: VCR, Courier New, Courier, Lucida Sans Typewriter, Lucida Typewriter, monospace;
+    background-color: #F0EFED;
+    height: 100vh;
+    width: 100vw;
+}
+
+.wrapper {
+    padding: 0;
+    margin: 0;
+    height: 100vh;
+    width: 100vw;
+}
+
+p {
+    font-family: VCR, Courier New, Courier, Lucida Sans Typewriter, Lucida Typewriter, monospace;
+    font-size: 22px;
+    text-transform: uppercase;
+    color: #ABABAB;
+    text-align: center;
+    padding: 0;
+    margin: 0;
+    line-height: 2.7;
+    font-weight: 500;
+}
+
+#title {
+    height: 10%;
+    top: 0;
+}
+
+p:hover {
+    text-decoration: none;
+}
+
+#epic-ye {
+    position:absolute;
+    bottom:0;
+    height: 50vh !important;
+    width: 100vw;
+}
+
+#epic-ye > img {
+    max-width: 50vw;
+    padding: 0;
+    margin: 0;
+    bottom: 0;
+    position: absolute;
+    padding-left: 40%;
+
+}

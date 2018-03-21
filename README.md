@@ -1,2 +1,2 @@
-# supa-homepage
-Simple homepage using ReactJS
+# supa.ee homepage
+Very epic splash page
