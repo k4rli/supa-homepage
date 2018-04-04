@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import './splashstyle.css';
+import './css/splashstyle.css';
 
 export default class Splash extends Component {
 	render() {

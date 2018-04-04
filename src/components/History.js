@@ -1,3 +1,5 @@
 import {createMemoryHistory} from 'history';
 
-export default createMemoryHistory();
+const memoryHistory = createMemoryHistory();
+
+export default memoryHistory;

@@ -1,0 +1,15 @@
+#epictext {
+	text-align: center;
+	font-size: 72px;
+	font-family: VCR, Courier New, Courier, Lucida Sans Typewriter, Lucida Typewriter, monospace;
+	text-transform: uppercase;
+    color: #ABABAB;
+	padding-top: 25%;
+}
+
+@media only screen and (max-width: 768px) {
+    #epictext {
+		padding-top: 55%;
+		line-height: normal;
+	}
+}

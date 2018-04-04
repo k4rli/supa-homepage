@@ -23,7 +23,7 @@ const fullPageOptions = {
   activeSlide: 0
 };
 
-class FullpageReact extends React.Component {
+export default class FullpageReact extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -38,6 +38,7 @@ class FullpageReact extends React.Component {
 	this.toggleMenu = this.toggleMenu.bind(this);
     this.onSlideChangeEnd = this.onSlideChangeEnd.bind(this);
     this.hideMenu = this.hideMenu.bind(this);
+    this.signUpClick = this.signUpClick.bind(this);
   }
 
 	handleMouseDown(e) {
@@ -64,6 +65,21 @@ class FullpageReact extends React.Component {
         });
     }
 
+    signUpClick() {
+        const oldActive = this.state.active;
+        console.log(oldActive);
+        const sliderState = {
+            active: {
+                Fullpage: 1
+            }
+        };
+
+        this.setState({
+            visible: true
+        });
+        this.setState(sliderState);
+    }
+
   onSlideChangeEnd(name, props, state, newState) {
     const oldActive = this.state.active;
     const sliderState = {
@@ -81,21 +97,21 @@ class FullpageReact extends React.Component {
   render() {
     fullPageOptions.slides = [
         <Slide onMouseDown={this.handleMouseDown} style={{backgroundColor: '#f0efed'}}>
-            <div style={{width:'100vw', height:'100vw'}} onMouseDown={this.hideMenu}>
+            <div style={{width:'100vw', height:'100vh'}} onMouseDown={this.hideMenu}>
                 <Splash handleMouseDown={this.handleMouseDown} text="😂"/>
             </div>
             <Menu handleMouseDown={this.handleMouseDownOnMenu}
-                  menuVisibility={this.state.visible}/>
+                  menuVisibility={this.state.visible}
+                  hideMenu={this.hideMenu}
+            />
         </Slide>,
-        <Slide style={{backgroundColor: '#F0efed'}}><SecondSlide text="whats poppin"/></Slide>
+        <Slide style={{backgroundColor: '#F0efed'}}>
+            <SecondSlide text="whats poppin"/>
+        </Slide>
     ];
 
     return (
-      <Fullpage onSlideChangeEnd={this.onSlideChangeEnd} {...fullPageOptions}>
-
-      </Fullpage>
+      <Fullpage onSlideChangeEnd={this.onSlideChangeEnd} {...fullPageOptions}> </Fullpage>
     );
-  }
-}
-
-export default FullpageReact;
+  };
+};

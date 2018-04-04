@@ -1,0 +1,151 @@
+table tr td:nth-child(4) {
+    display: none;
+}
+
+table tr td:nth-child(5) {
+    display: none;
+}
+
+th:nth-child(4) {
+    display: none;
+}
+
+th:nth-child(5) {
+    display: none;
+}
+
+b {
+    display: none;
+}
+
+.table_on_white th {
+    font-size: 1em;
+    text-align: left;
+}
+
+.table_on_white thead {
+    width: 120px;
+}
+
+.result {
+    max-height: 35vh;
+    word-wrap: break-word;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.result > table {
+    width: 100%;
+}
+
+.tracking-wrapper {
+    background-color: #f0efed;
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    top: 0;
+    display: flex;
+    font-family: VCR, Courier New, Courier, Lucida Sans Typewriter, Lucida Typewriter, monospace;
+    text-transform: uppercase;
+}
+
+.tracking-form {
+    z-index: 1000;
+    padding: 32px;
+    margin-top: 50px;
+    margin-right: auto;
+    margin-left: auto;
+    width: 50vw;
+    height: 70vh;
+    min-width: 300px;
+    min-height: 330px;
+    box-shadow: 0 15px 35px rgba(50,50,93,.1),0 5px 15px rgba(0,0,0,.07);
+    word-wrap: break-spaces;
+}
+
+.tracking-form h1 {
+    margin-top: 0;
+    margin-bottom: 10%;
+    text-align: center;
+    font-size: 5rem;
+}
+
+input,
+textarea {
+    display: block;
+    padding: .5rem .75rem;
+    width: 100%;
+    font-weight: 400;
+    line-height: 1.25;
+    color: #55595c;
+    font-size: 1em;
+    background-color: #fff;
+    background-clip: padding-box;
+    border-top: 0;
+    border-right: 0;
+    border-bottom: 1px solid grey;
+    border-left: 0;
+    font-family: inherit;
+}
+
+.react-form > input:-ms-input-placeholder, /* IE 10+ */
+.react-form >  input:-moz-placeholder, /* Firefox 18- */
+.react-form > input::-moz-placeholder, /* Firefox 19+ */
+.react-form > input::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+    font-family: VCR, Courier New, Courier, Lucida Sans Typewriter, Lucida Typewriter, monospace;
+    text-transform: uppercase;
+    color: #ababab;
+}
+
+@media only screen and (max-width: 768px) {
+    .tracking-form {
+        width: 100vw !important;
+        margin: 0;
+        overflow: hidden;
+        padding: 5vh 5vw 0 5vw;
+        min-height: 320px;
+        height: 95vh;
+        z-index: 0;
+    }
+
+    .tracking-form td:nth-child(3),
+    .tracking-form th:nth-child(3) {
+        display: none;
+    }
+
+    .tracking-wrapper {
+        min-width: 100vw;
+        min-height: 100vh;
+        overflow-x: hidden;
+    }
+}
+
+
+.definition-list h3 {
+    display: none;
+}
+
+dd:nth-child(8),
+dd:nth-child(10),
+.accent-color:nth-child(7),
+.accent-color:nth-child(9) {
+    display: none;
+}
+
+.single-block dt {
+    font-weight: 600;
+}
+
+.single-block dd {
+    margin-left: 0;
+}
+
+.single-block {
+    width: 90%;
+    padding:3px;
+}
+
+.prev-select {
+    margin-top: 15px;
+}

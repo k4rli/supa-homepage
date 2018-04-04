@@ -1,0 +1,51 @@
+#left-side-menu {
+  width: 20vw;
+  height: 100vh;
+  background-color: #F0FFED;
+  position: fixed;
+  top: 0;
+  left: 0;
+  transition: transform .5s
+              cubic-bezier(0, .52, 0, 1);
+  overflow: scroll;
+  z-index: 1000;
+}
+
+#left-side-menu.hide {
+	transition: transform .5s cubic-bezier(0, .52, 0, 1);
+  	transform: translate3d(-100vw, 0, 0);
+}
+
+#left-side-menu.show {
+  transform: translate3d(0vw, 0, 0);
+  overflow: hidden;
+}
+
+#left-side-menu h2 a {
+	font-family: VCR, Courier New, Courier, Lucida Sans Typewriter, Lucida Typewriter, monospace;
+    text-transform: uppercase;
+    color: #ABABAB;
+  	margin: 0 0 0 15px;
+  	text-decoration: none;
+    font-size: 2em;
+    width:25vw;
+    word-wrap: break-word;
+}
+
+#left-side-menu h2 {
+	margin-bottom: 0;
+}
+
+#left-side-menu h2 a:hover {
+  margin-left: 20px;
+}
+
+@media only screen and (max-width: 768px) {
+    #left-side-menu {
+		width: 100vw;
+	}
+
+    #left-side-menu h2 a{
+        font-size: 2em;
+    }
+}

@@ -1,0 +1,13 @@
+.floatingMenuButton {
+    margin: 15px;
+    position:absolute;
+    float: left;
+    font-size: 75px !important;
+    z-index: 999;
+}
+
+@media only screen and (max-width: 768px) {
+    .floatingMenuButton {
+        font-size: 30px !important;
+    }
+}
