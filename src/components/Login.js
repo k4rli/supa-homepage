@@ -82,7 +82,7 @@ export default class Login extends Component {
                 />
                 <div className="signup-form" onMouseDown={this.hideMenu}>
                     <form className='react-form' onSubmit={this.handleSubmit}>
-                        <h1><span aria-label="jsx-a11y/accessible-emoji" role='img' >🙏</span></h1>
+                        <h1>login</h1>
                         <input id='formName' className='form-input' name='username' type='text' required onChange={this.handleChange} placeholder='username' value={this.state.username} />
                         <input id='formSubject' className='form-input' name='password' type='password' required onChange={this.handleChange} placeholder='password' value={this.state.password} />
                         <input id='formButton' className='btn' type='submit' value='Log in' />

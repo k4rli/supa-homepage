@@ -17,6 +17,14 @@
     color: #ABABAB;
 }
 
+#shittydownarrow {
+    text-align: right;
+    margin-top: 91vh;
+    font-size: 2em;
+    padding-right: 1em;
+    margin-bottom: 2vh !important;
+}
+
 #epicmenu {
     position: fixed;
     left: 0;

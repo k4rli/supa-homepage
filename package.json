@@ -4,9 +4,11 @@
   "private": true,
   "dependencies": {
     "axios": "^0.18.0",
+    "bootstrap": "^4.0.0",
     "fullpage-react": "^3.0.29",
     "fullpage.js": "^2.9.6",
     "material-ui": "^0.20.0",
+    "popper.js": "^1.14.2",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-floating-button-menu": "^1.0.8",

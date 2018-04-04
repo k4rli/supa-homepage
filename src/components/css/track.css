@@ -28,9 +28,9 @@ b {
 }
 
 .result {
-    max-height: 35vh;
+    max-height: 30vh;
     word-wrap: break-word;
-    overflow-y: scroll;
+    overflow-y: auto;
     overflow-x: hidden;
 }
 
@@ -51,7 +51,7 @@ b {
 }
 
 .tracking-form {
-    z-index: 1000;
+    z-index: 0;
     padding: 32px;
     margin-top: 50px;
     margin-right: auto;
@@ -118,6 +118,10 @@ textarea {
         min-width: 100vw;
         min-height: 100vh;
         overflow-x: hidden;
+    }
+
+    .result {
+        max-height: 50vh;
     }
 }
 

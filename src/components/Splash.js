@@ -4,7 +4,10 @@ import './css/splashstyle.css';
 export default class Splash extends Component {
 	render() {
 		return (
-			<p id="epicemoji" onMouseDown={this.props.handleMouseDown}>{this.props.text}</p>
+			<div className="splash-wrapper">
+				<p id="epicemoji" onMouseDown={this.props.handleMouseDown}>{this.props.text}</p>
+                <p id="shittydownarrow"><span aria-label="jsx-a11y/accessible-emoji" role='img' >👇</span></p>
+			</div>
 		);
 	}
 }

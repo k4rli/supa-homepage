@@ -9,6 +9,9 @@
               cubic-bezier(0, .52, 0, 1);
   overflow: scroll;
   z-index: 1000;
+    -webkit-box-shadow: 0 15px 35px rgba(50,50,93,.1), 0 5px 15px rgba(0,0,0,.07);
+     box-shadow: 0 15px 35px rgba(50,50,93,.1), 0 5px 15px rgba(0,0,0,.07);
+
 }
 
 #left-side-menu.hide {
@@ -27,7 +30,7 @@
     color: #ABABAB;
   	margin: 0 0 0 15px;
   	text-decoration: none;
-    font-size: 2em;
+    font-size: 5vw;
     width:25vw;
     word-wrap: break-word;
 }
