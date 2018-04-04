@@ -1,2 +1,6 @@
-# supa.ee homepage
-Very epic splash page
+# ~ｓｕｐａ．ｅｅ~
+
+- `ｈｉｔ`
+- `ａ`
+- `ｎａｓｔｙ`
+- `ｙｅｅｔ`
