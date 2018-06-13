@@ -3,16 +3,16 @@ import EmojiButton from "./EmojiButton";
 import Menu from "./Menu";
 import axios from 'axios';
 import Select from 'react-select';
+import codes from './data/tracking_codes.json';
 import 'react-select/dist/react-select.css';
 import './css/track.css';
-import trackingCodes from './data/tracking_codes.json';
 
 export default class Track extends Component {
     constructor(props) {
         super(props);
         this.state = {
             visible: false,
-            codes: trackingCodes,
+            codes: [],
             packageName: '',
             result: '',
             code: '',
@@ -43,6 +43,17 @@ export default class Track extends Component {
         }
     };
 
+    componentWillMount() {
+        axios.get('http://supa.ee/json/tracking_codes.json')
+            .then((response) => {
+                console.log(response.data);
+                this.setState({codes: response.data})
+            }).catch((error) => {
+                this.setState({codes: codes});
+                console.log(error);
+        });
+    }
+
     // Checks if this tracking number has already been searched.
     // This is to avoid multiple entries of same number in previous searches dropdown menu.
     checkIfAlreadyTrackingCodeInCodes(code) {
@@ -56,6 +67,13 @@ export default class Track extends Component {
     handleSubmit = (e) => {
         e.preventDefault();
         if (this.state.code.length < 5) return true;
+        console.log(this.state.packageName);
+
+        if (this.state.packageName.length === 0) {
+            this.setState({
+                packageName: "Package no: " + (this.state.codes.length + 1)
+            });
+        }
         this.apiRequest(this.state.code, this.state.packageName);
         this.setState({code:'', packageName:''})
     };
@@ -67,7 +85,7 @@ export default class Track extends Component {
             + code + '&lang=est'
         ).then((response) => {
             this.mobileOrDesktopApi(response.data);
-            if (this.state.apiResultType != 'invalid') {
+            if (this.state.apiResultType !== 'invalid') {
                 this.addToCodes(name, code);
                 this.setState({result: response.data});
                 console.log({type: "TRACKING_SUCCESS", code: code, name: name});
@@ -97,18 +115,23 @@ export default class Track extends Component {
     // For some reason, they give different data based on display resolution.
     // On large displays, they give a table with results, but on small screens, a description list is given.
     mobileOrDesktopApi(result) {
-        if (result.indexOf('dt') != -1) {
+        if (result.indexOf('dt') !== -1) {
             this.setState({
-                apiResultType:'mobile'
+                apiResultType: 'mobile'
             });
-        } else if (result.indexOf('th') != -1) {
+        } else if (result.indexOf('th') !== -1) {
             this.setState({
-                apiResultType:'desktop'
+                apiResultType: 'desktop'
             });
-        } else if (result.indexOf('ebakorrektselt') != -1) {
+        } else if (result.indexOf('ebakorrektselt') !== -1) {
             this.setState({
-                apiResultType:'invalid'
+                apiResultType: 'invalid'
             });
+        } else {
+            console.log("API issue");
+            this.setState({
+                apiResultType: 'invalid'
+            })
         }
     };
 
@@ -156,7 +179,7 @@ export default class Track extends Component {
                     <form className='react-form' onSubmit={this.handleSubmit}>
                         <h1>track</h1>
                         <input id='formName' className='form-input' name='packageName' type='text'
-                               required onChange={this.handleChange} placeholder='name for your package' value={this.state.packageName} />
+                               onChange={this.handleChange} placeholder='name for your package' value={this.state.packageName} />
                         <input id='formCode' className='form-input' name='code' type='text'
                                required onChange={this.handleChange} placeholder='tracking number' value={this.state.code} />
                         <input id='formButton' className='btn' type='submit' value='track' />

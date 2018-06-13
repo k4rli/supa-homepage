@@ -96,7 +96,7 @@ export default class FullpageReact extends React.Component {
 
   render() {
     fullPageOptions.slides = [
-        <Slide onMouseDown={this.handleMouseDown} style={{backgroundColor: '#f0efed'}}>
+        <Slide onMouseDown={this.handleMouseDown} style={{backgroundColor: '#F2EEDD', backgroundImage: 'linear-gradient(to bottom, #7DE2FC 0%, #ffecd2 100%)'}}>
             <div style={{width:'100vw', height:'100vh'}} onMouseDown={this.hideMenu}>
                 <Splash handleMouseDown={this.handleMouseDown} text="😂"/>
             </div>
@@ -105,7 +105,7 @@ export default class FullpageReact extends React.Component {
                   hideMenu={this.hideMenu}
             />
         </Slide>,
-        <Slide style={{backgroundColor: '#F0efed'}}>
+        <Slide style={{backgroundColor: '#F2EEDD', backgroundImage: 'linear-gradient(to bottom, #ffecd2 0%, #7DE2FC 100%)'}}>
             <SecondSlide text="whats poppin"/>
         </Slide>
     ];
