@@ -4,8 +4,8 @@
 	font-family: VCR, Courier New, Courier, Lucida Sans Typewriter, Lucida Typewriter, monospace;
 	text-transform: uppercase;
     color: #ABABAB;
-	padding-top: 25%;
-	padding-left: 50vw;
+	margin-top: 35vh;
+	margin-left: 50vw;
 	z-index: 500;
 	position: absolute;
 }
@@ -37,7 +37,7 @@
 	background-image: url('../NotFound/resources/ye2.png');
 	background-repeat: no-repeat;
 	background-position: left bottom;
-	background-size: 55% auto;
+	background-size: 35% auto;
 }
 
 /* #epic-ye-slide > img {

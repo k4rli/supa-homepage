@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import './css/secondslide.css';
-import ye from './NotFound/resources/ye2.png';
 
 export default class SecondSlide extends Component {
 	render() {
