@@ -44,7 +44,7 @@ export default class Track extends Component {
     };
 
     componentWillMount() {
-        axios.get('http://supa.ee/json/tracking_codes.json')
+        axios.get('https://supa.ee/json/tracking_codes.json')
             .then((response) => {
                 console.log(response.data);
                 this.setState({codes: response.data})
