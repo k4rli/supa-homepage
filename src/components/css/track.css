@@ -28,18 +28,24 @@ b {
 }
 
 .result {
-    max-height: 30vh;
+    margin-top: 3vh;
+    max-height: 45vh !important;
     word-wrap: break-word;
     overflow-y: auto;
     overflow-x: hidden;
+    font-family: Roboto;
 }
 
 .result > table {
     width: 100%;
+    max-height: 45vh !important;
+    margin: 0;
 }
 
 .tracking-wrapper {
-    background-color: #f0efed;
+    /* background-color: #f0efed; */
+    background-color: rgb(242, 238, 221);
+    background-image: linear-gradient(rgb(125, 226, 252) 0%, rgb(255, 236, 210) 100%);
     width: 100vw;
     height: 100vh;
     margin: 0;
@@ -51,13 +57,14 @@ b {
 }
 
 .tracking-form {
+    background-color: #f0efed;
     z-index: 0;
     padding: 32px;
     margin-top: 50px;
     margin-right: auto;
     margin-left: auto;
     width: 50vw;
-    height: 70vh;
+    height: 80vh;
     min-width: 300px;
     min-height: 330px;
     box-shadow: 0 15px 35px rgba(50,50,93,.1),0 5px 15px rgba(0,0,0,.07);
@@ -98,14 +105,19 @@ textarea {
     color: #ababab;
 }
 
+.react-form h1 {
+    font-size: 3.5em;
+    margin-bottom: 6.5%;
+}
+
 @media only screen and (max-width: 768px) {
     .tracking-form {
         width: 100vw !important;
         margin: 0;
         overflow: hidden;
         padding: 5vh 5vw 0 5vw;
-        min-height: 320px;
-        height: 95vh;
+        min-height: 95vh;
+        
         z-index: 0;
     }
 
@@ -121,7 +133,7 @@ textarea {
     }
 
     .result {
-        max-height: 50vh;
+        max-height: 60vh;
     }
 }
 
@@ -147,7 +159,7 @@ dd:nth-child(10),
 
 .single-block {
     width: 90%;
-    padding:3px;
+    padding: 3px;
 }
 
 .prev-select {

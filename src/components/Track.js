@@ -44,10 +44,12 @@ export default class Track extends Component {
     };
 
     componentWillMount() {
+        // this.setState({codes: codes});
+        // idk why this doesnt work
         axios.get('https://www.supa.ee/json/tracking_codes.json')
             .then((response) => {
-                console.log(response.data);
-                this.setState({codes: response.data})
+                console.log(response.data.type);
+                this.setState({codes: JSON.parse(response.data)})
             }).catch((error) => {
                 this.setState({codes: codes});
                 console.log(error);
@@ -90,6 +92,7 @@ export default class Track extends Component {
                 this.setState({result: response.data});
                 console.log({type: "TRACKING_SUCCESS", code: code, name: name});
             } else {
+                this.setState({result: ''});
                 console.log({type: "INVALID_TRACKING_CODE", code: code, name: name});
             }
         }).catch(() => {
@@ -116,22 +119,14 @@ export default class Track extends Component {
     // On large displays, they give a table with results, but on small screens, a description list is given.
     mobileOrDesktopApi(result) {
         if (result.indexOf('dt') !== -1) {
-            this.setState({
-                apiResultType: 'mobile'
-            });
+            this.setState({apiResultType: 'mobile'});
         } else if (result.indexOf('th') !== -1) {
-            this.setState({
-                apiResultType: 'desktop'
-            });
+            this.setState({apiResultType: 'desktop'});
         } else if (result.indexOf('ebakorrektselt') !== -1) {
-            this.setState({
-                apiResultType: 'invalid'
-            });
+            this.setState({apiResultType: 'invalid'});
         } else {
             console.log("API issue");
-            this.setState({
-                apiResultType: 'invalid'
-            })
+            this.setState({apiResultType: 'invalid'})
         }
     };
 
@@ -143,24 +138,18 @@ export default class Track extends Component {
 
     // On small screens, clicking on menu will close it.
     handleMouseDownOnMenu(e) {
-        if (window.innerWidth <= 768) {
-            this.toggleMenu();
-        }
+        if (window.innerWidth <= 768) this.toggleMenu();
         e.stopPropagation();
     };
 
     // Changes menu state.
     toggleMenu() {
-        this.setState({
-            visible: !this.state.visible
-        });
+        this.setState({visible: !this.state.visible});
     }
 
     // Hides menu.
     hideMenu() {
-        this.setState({
-            visible: false
-        });
+        this.setState({visible: false});
     };
 
     render() {

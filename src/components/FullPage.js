@@ -1,12 +1,10 @@
 import React from 'react';
-
 import Splash from './Splash.js';
 import { Fullpage, Slide } from 'fullpage-react';
 import SecondSlide from './SecondSlide.js';
 import Menu from './Menu.js';
-
-require('../normalize.css');
-require('../skeleton.css');
+import "../normalize.css";
+import "../skeleton.css";
 
 const fullPageOptions = {
   // for mouse/wheel events
@@ -27,11 +25,11 @@ export default class FullpageReact extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      active: {
-        Fullpage: 0,
-        horizontalSlider1: 0
-		},
-	  visible: false
+        active: {
+            Fullpage: 0,
+            horizontalSlider1: 0
+        },
+	    visible: false
     };
 	this.handleMouseDown = this.handleMouseDown.bind(this);
 	this.handleMouseDownOnMenu = this.handleMouseDownOnMenu.bind(this);
@@ -47,22 +45,16 @@ export default class FullpageReact extends React.Component {
 	}
 
     handleMouseDownOnMenu(e) {
-        if (window.innerWidth <= 768) {
-            this.toggleMenu();
-        }
+        if (window.innerWidth <= 768) this.toggleMenu();
         e.stopPropagation();
     }
 
 	toggleMenu() {
-		this.setState({
-			visible: !this.state.visible
-		});
+		this.setState({visible: !this.state.visible});
 	}
 
     hideMenu() {
-        this.setState({
-            visible: false
-        });
+        this.setState({visible: false});
     }
 
     signUpClick() {
@@ -74,9 +66,7 @@ export default class FullpageReact extends React.Component {
             }
         };
 
-        this.setState({
-            visible: true
-        });
+        this.setState({visible: true});
         this.setState(sliderState);
     }
 

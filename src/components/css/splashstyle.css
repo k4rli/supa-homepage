@@ -1,19 +1,13 @@
-/* div {
-	margin:0 auto;
-	text-align:left;
-	width: 50px;
-} */
-
 #epicemoji {
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	margin-top: -50px;
-	margin-left: -50px;
-	text-align: center;
-	font-size: 72px;
-	font-family: VCR, Courier New, Courier, Lucida Sans Typewriter, Lucida Typewriter, monospace;
-	text-transform: uppercase;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -50px;
+    margin-left: -50px;
+    text-align: center;
+    font-size: 72px;
+    font-family: VCR, Courier New, Courier, Lucida Sans Typewriter, Lucida Typewriter, monospace;
+    text-transform: uppercase;
     color: #ABABAB;
 }
 
@@ -35,31 +29,30 @@
 }
 
 #roundButton {
-  background-color: #96D9FF;
-  margin-bottom: 20px;
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  border: 10px solid #0065A6;
-  outline: none;
-  transition: all .2s cubic-bezier(0, 1.26, .8, 1.28);
+    background-color: #96D9FF;
+    margin-bottom: 20px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 10px solid #0065A6;
+    outline: none;
+    transition: all .2s cubic-bezier(0, 1.26, .8, 1.28);
 }
 
 #roundButton:hover {
-  background-color: #96D9FF;
-  cursor: pointer;
-  border-color: #003557;
-  transform: scale(1.2, 1.2);
+    background-color: #96D9FF;
+    cursor: pointer;
+    border-color: #003557;
+    transform: scale(1.2, 1.2);
 }
 
 #roundButton:active {
-  border-color: #003557;
-  background-color: #FFF;
+    border-color: #003557;
+    background-color: #FFF;
 }
 
 @media only screen and (max-width: 768px) {
     #epicemoji {
-		word-wrap: break-word;
-		
-	}
+        word-wrap: break-word;
+	  }
 }

@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import './App.css';
 import FullPage from './components/FullPage.js';
 import Login from "./components/Login";
 import History from "./components/History";
@@ -7,7 +6,6 @@ import Signup from "./components/Signup";
 import { Route, Router, Switch } from "react-router-dom";
 import Track from "./components/Track";
 import Markdown from "./components/Markdown";
-// import NotFound from "./components/NotFound/NotFound";
 
 export default class App extends Component {
   render() {

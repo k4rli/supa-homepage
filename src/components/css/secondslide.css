@@ -19,8 +19,11 @@
 		padding-left: 50vw;
 	}
 
-	#epic-ye-slide > img {
-		width: 100vw !important;
+	#epic-ye-slide {
+		-o-background-size:100% auto;
+		-webkit-background-size:100% auto;
+		-moz-background-size:100% auto;
+		background-size:100% auto;
 	}
 }
 
@@ -31,11 +34,13 @@
 	width: 100vw;
 	z-index: 499;
 	left: 0;
+	background-image: url('../NotFound/resources/ye2.png');
+	background-repeat: no-repeat;
+	background-position: left bottom;
 }
 
-#epic-ye-slide > img {
+/* #epic-ye-slide > img {
 	width: 50vw;
-	/*height: 100vh;*/
 	max-height: 75vh;
 	bottom: 0;
 	position: absolute;
@@ -44,5 +49,4 @@
 	-khtml-user-drag: none;
 	-moz-user-drag: none;
 	-o-user-drag: none;
-	user-drag: none;
-}
+} */

@@ -3,8 +3,7 @@ import showdown from 'showdown';
 import Menu from "./Menu";
 import EmojiButton from "./EmojiButton";
 import history from './History';
-
-require('./css/Markdown.css');
+import "./css/Markdown.css";
 
 export default class Markdown extends Component {
     constructor() {
@@ -27,26 +26,27 @@ export default class Markdown extends Component {
         return (
             <div className="markdown-wrapper">
                 <div className="goBackButton" onMouseDown={history.goBack}>
-                    <EmojiButton text="🔙"/>
+                    <EmojiButton text="🔙" />
                 </div>
                 <div className='row'>
                     <div className='col-sm-6'>
-                <textarea
-                    type='text'
-                    defaultValue={this.state.value}
-                    onChange={this.handleChange.bind(this)}
-                    id='markdown'
-                    className='col-xs-10 col-xs-offset-1 full-height'>
+                        <textarea
+                            type='text'
+                            defaultValue={this.state.value}
+                            onChange={this.handleChange.bind(this)}
+                            id='markdown'
+                            className='col-xs-10 col-xs-offset-1 full-height'>
 
-                </textarea>
+                        </textarea>
                     </div>
                     <div className='col-sm-6'>
                         <div id='htmlArea'
-                             className='col-xs-10 col-xs-offset-1 full-height'>
+                            className='col-xs-10 col-xs-offset-1 full-height'>
                             <div dangerouslySetInnerHTML={this.createMarkup()} />
                         </div>
                     </div>
                 </div>
-            </div>);
+            </div>
+        );
     }
 };
