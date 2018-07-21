@@ -1,17 +1,16 @@
 import React, { Component } from 'react';
-import FullPage from './components/FullPage.js';
-import Login from "./components/Login";
-import History from "./components/History";
-import Signup from "./components/Signup";
-import { Route, Router, Switch } from "react-router-dom";
-import Track from "./components/Track";
-import Markdown from "./components/Markdown";
+import { Route, Switch } from 'react-router-dom';
+
+import FullPage from './components/fullpage';
+import Login from './components/login';
+import Signup from './components/signup';
+import Track from './components/track';
+import Markdown from "./components/markdown";
 
 export default class App extends Component {
-  render() {
-    return (
-        <div>
-            <Router history={History}>
+    render() {
+        return (
+            <div>
                 <Switch>
                     <Route exact path="/" component={FullPage}> </Route>
                     <Route exact path="/signup" component={Signup}> </Route>
@@ -20,8 +19,7 @@ export default class App extends Component {
                     <Route exact path="/gymfinder"> </Route>
                     <Route exact path="/markdown" component={Markdown}> </Route>
                 </Switch>
-            </Router>
-        </div>
-    );
-  }
+            </div>
+        );
+    }
 }

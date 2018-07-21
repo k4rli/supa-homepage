@@ -1,0 +1,52 @@
+#epictext {
+	text-align: center;
+	font-size: 4em;
+	font-family: VCR, Courier New, Courier, Lucida Sans Typewriter, Lucida Typewriter, monospace;
+	text-transform: uppercase;
+	color: #ABABAB;
+	margin-top: 35vh;
+	margin-left: 50vw;
+	z-index: 500;
+	position: absolute;
+}
+
+@media only screen and (max-width: 768px) {
+	#epictext {
+		padding-top: 55%;
+		line-height: normal;
+		font-size: 3em;
+		margin-right: 10vw !important;
+		padding-left: 50vw;
+	}
+	#epic-ye-slide {
+		-o-background-size: 100% auto;
+		-webkit-background-size: 100% auto;
+		-moz-background-size: 100% auto;
+		background-size: 100% auto;
+	}
+}
+
+#epic-ye-slide {
+	position: absolute;
+	bottom: 0;
+	height: 60vh !important;
+	width: 100vw;
+	z-index: 499;
+	left: 0;
+	background-image: url('../../notfound/resources/ye2.png');
+	background-repeat: no-repeat;
+	background-position: left bottom;
+	background-size: 35% auto;
+}
+
+/* #epic-ye-slide > img {
+	width: 50vw;
+	max-height: 75vh;
+	bottom: 0;
+	position: absolute;
+
+	-webkit-user-drag: none;
+	-khtml-user-drag: none;
+	-moz-user-drag: none;
+	-o-user-drag: none;
+} */

@@ -1,0 +1,29 @@
+#epicemoji {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -50px;
+    margin-left: -50px;
+    text-align: center;
+    font-size: 72px;
+    font-family: VCR, Courier New, Courier, Lucida Sans Typewriter, Lucida Typewriter, monospace;
+    text-transform: uppercase;
+    color: #ABABAB;
+}
+
+.floatingMenuButton {
+    margin: 15px;
+    position: absolute;
+    float: left;
+    font-size: 75px !important;
+    z-index: 999;
+}
+
+@media only screen and (max-width: 768px) {
+    #epicemoji {
+        word-wrap: break-word;
+    }
+    .floatingMenuButton {
+        font-size: 30px !important;
+    }
+}

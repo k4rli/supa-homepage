@@ -14,10 +14,12 @@
     "react-floating-button-menu": "^1.0.8",
     "react-icons": "^2.2.7",
     "react-mfb": "^0.6.0",
+    "react-redux": "^5.0.7",
     "react-router-dom": "^4.2.2",
     "react-scripts": "1.1.1",
     "react-select": "^1.2.1",
     "react-tap-event-plugin": "^3.0.2",
+    "redux": "^4.0.0",
     "showdown": "^1.8.6"
   },
   "scripts": {

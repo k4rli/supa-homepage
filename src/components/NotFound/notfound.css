@@ -36,18 +36,17 @@ p:hover {
 }
 
 #epic-ye {
-    position:absolute;
-    bottom:0;
+    position: absolute;
+    bottom: 0;
     height: 50vh !important;
     width: 100vw;
 }
 
-#epic-ye > img {
+#epic-ye>img {
     max-width: 50vw;
     padding: 0;
     margin: 0;
     bottom: 0;
     position: absolute;
     padding-left: 40%;
-
 }
