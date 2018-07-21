@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import './style.css';
 import Menu from '../fullpage/menu';
 import EmojiButton from '../emojibutton';
-import NavLink from 'react-router-dom/es/NavLink';
-
+import NavigateTo from '../navlink'
 class Signup extends Component {
     constructor(props) {
         super(props);
@@ -14,6 +13,7 @@ class Signup extends Component {
             password: '',
             visible: false
         };
+
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleMouseDown = this.handleMouseDown.bind(this);
@@ -38,7 +38,9 @@ class Signup extends Component {
             formPassword: this.state.password
         };
 
-        if (formData.formUsername.length < 1 || formData.formEmail.length < 1 || formData.formPassword.length < 1) {
+        if (formData.formUsername.length < 1 
+            || formData.formEmail.length < 1 
+            || formData.formPassword.length < 1) {
             return true
         }
 
@@ -55,22 +57,16 @@ class Signup extends Component {
     }
 
     handleMouseDownOnMenu(e) {
-        if (window.innerWidth <= 768) {
-            this.toggleMenu();
-        }
+        if (window.innerWidth <= 768) this.toggleMenu();
         e.stopPropagation();
     }
 
     toggleMenu() {
-        this.setState({
-            visible: !this.state.visible
-        });
+        this.setState({ visible: !this.state.visible });
     }
 
     hideMenu() {
-        this.setState({
-            visible: false
-        });
+        this.setState({ visible: false });
     }
 
     render() {
@@ -92,7 +88,7 @@ class Signup extends Component {
 
                         <input id='formButton' className='btn' type='submit' value='Sign up' />
                     </form>
-                    <NavLink className="logInRedirect" to="/login">log in instead</NavLink>
+                    <NavigateTo className="logInRedirect" to="/login">log in instead</NavigateTo>
                 </div>
             </div>
         );

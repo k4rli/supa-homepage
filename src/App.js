@@ -12,12 +12,12 @@ export default class App extends Component {
         return (
             <div>
                 <Switch>
-                    <Route exact path="/" component={FullPage}> </Route>
-                    <Route exact path="/signup" component={Signup}> </Route>
-                    <Route exact path="/login" component={Login}> </Route>
-                    <Route exact path="/track" component={Track}> </Route>
-                    <Route exact path="/gymfinder"> </Route>
-                    <Route exact path="/markdown" component={Markdown}> </Route>
+                    <Route exact path="/" component={FullPage} />
+                    <Route exact path="/signup" component={Signup} />
+                    <Route exact path="/login" component={Login} />
+                    <Route exact path="/track" component={Track} />
+                    <Route exact path="/gymfinder" />
+                    <Route exact path="/markdown" component={Markdown} />
                 </Switch>
             </div>
         );
