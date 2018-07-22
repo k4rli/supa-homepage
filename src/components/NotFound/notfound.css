@@ -14,7 +14,7 @@ body, root, ul {
     width: 100vw;
 }
 
-p {
+#not-found-text {
     font-family: VCR, Courier New, Courier, Lucida Sans Typewriter, Lucida Typewriter, monospace;
     font-size: 22px;
     text-transform: uppercase;

@@ -1,7 +1,8 @@
 #shittydownarrow {
   text-align: right;
-  margin-top: 91vh;
+  margin-top: 45vh;
   font-size: 2em;
+  right: 0;
   padding-right: 1em;
   margin-bottom: 2vh !important;
 }

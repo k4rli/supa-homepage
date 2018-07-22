@@ -2,6 +2,14 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import Select from 'react-select';
 import { connect } from 'react-redux';
+import ReactHtmlParser, { processNodes, convertNodeToElement, htmlparser2 } from 'react-html-parser';
+import { withStyles } from '@material-ui/core/styles';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper';
 
 import EmojiButton from "../emojibutton";
 import Menu from "../fullpage/menu";
@@ -60,9 +68,10 @@ class Track extends Component {
         }
     };
 
-    // Checks if this tracking number has already been searched.
-    // This is to avoid multiple entries of same number in previous searches dropdown menu.
-    // @returns true if exists
+    /* Checks if this tracking number has already been searched.
+     * This is to avoid multiple entries of same number in previous searches dropdown menu.
+     * @returns true if exists
+    */
     checkIfAlreadyTrackingCodeInCodes(code) {
         return this.props.trackingCodes.find((existingCode) => {
             return existingCode.value === code;
@@ -106,7 +115,7 @@ class Track extends Component {
         const code = this.state.code;
         if (!this.checkIfAlreadyTrackingCodeInCodes(code)) {
             this.props.addNewTrackingCode({
-                label: this.state.packageName, 
+                label: this.state.packageName,
                 value: this.state.code
             });
         }
@@ -144,10 +153,42 @@ class Track extends Component {
         this.setState({ visible: false });
     };
 
+    createTable(results) {
+        console.log(results);
+        if (results === undefined || results.length === 0) return;
+        return (
+            <Paper className='paperwrapper'>
+                <Table className='table-wrapper'>
+                    <TableHead>
+                        {results.headers.map(n => {
+                            return (
+                                <TableRow>
+                                    <TableCell>n[0]</TableCell>
+                                    <TableCell numeric>n[1]</TableCell>
+                                    <TableCell numeric>n[2]</TableCell>
+                                </TableRow>
+                            )
+                        })};
+                    </TableHead>
+                    <TableBody>
+                        {results.rows.map(n => {
+                            return (
+                                <TableRow key='0'>
+                                    <TableCell component="th" scope="row">{n.event}</TableCell>
+                                    <TableCell numeric>{n.date}</TableCell>
+                                    <TableCell numeric>{n.location}</TableCell>
+                                </TableRow>
+                            );
+                        })}
+                    </TableBody>
+                </Table>
+            </Paper>
+        );
+    }
+
     render() {
         const { selectedOption } = this.state;
         const value = selectedOption && selectedOption.value;
-
         return (
             <div className="tracking-wrapper">
                 <div className="floatingMenuButton" onMouseDown={this.toggleMenu}>
@@ -171,10 +212,13 @@ class Track extends Component {
                             searchable={false}
                         />
                     </form>
-                    { this.state.loading 
-                        ? <Loading /> 
-                        : <div className="result" dangerouslySetInnerHTML={{ __html: this.props.results }} />
-                        }
+                    {this.state.loading
+                        ? <Loading />
+                        :
+                        <div className="result">
+                            {this.createTable(this.props.requestResults)}
+                        </div>
+                    }
                 </div>
             </div>
         );

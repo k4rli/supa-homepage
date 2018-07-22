@@ -88,7 +88,7 @@ export default class FullpageReact extends React.Component {
     fullPageOptions.slides = [
         <Slide onMouseDown={this.handleMouseDown} style={{backgroundColor: '#F2EEDD', backgroundImage: 'linear-gradient(to bottom, #7DE2FC 0%, #ffecd2 100%)'}}>
             <div style={{width:'100vw', height:'100vh'}} onMouseDown={this.hideMenu}>
-                <Splash handleMouseDown={this.handleMouseDown} text="😂"/>
+                <Splash onMouseDown={this.handleMouseDown} text="😂"/>
             </div>
             <Menu handleMouseDown={this.handleMouseDownOnMenu}
                   menuVisibility={this.state.visible}

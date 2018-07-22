@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@material-ui/core": "^1.4.0",
     "axios": "^0.18.0",
     "bootstrap": "^4.0.0",
     "fullpage-react": "^3.0.29",
@@ -12,6 +13,7 @@
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-floating-button-menu": "^1.0.8",
+    "react-html-parser": "^2.0.2",
     "react-icons": "^2.2.7",
     "react-mfb": "^0.6.0",
     "react-redux": "^5.0.7",
@@ -30,6 +32,8 @@
     "eject": "react-scripts eject"
   },
   "devDependencies": {
+    "eslint-config-airbnb-base": "^13.0.0",
+    "eslint-plugin-import": "^2.13.0",
     "redux-devtools-extension": "^2.13.5"
   }
 }
