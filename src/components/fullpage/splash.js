@@ -7,9 +7,11 @@ export default class Splash extends Component {
 		return (
 			<div className="splash-wrapper">
 				<div className="floatingMenuButton" onMouseDown={this.props.onMouseDown}>
-					<EmojiButton id="epicemoji" text={this.props.text} />
+					<EmojiButton id="epicemoji" text={this.props.text} className='center' />
 				</div>
-				<EmojiButton id="shittydownarrow" text='👇' />
+				<div className="floatingMenuButton">
+					<EmojiButton id="shittydownarrow" text='👇' className='bottom-right' />
+				</div>
 			</div>
 		);
 	}

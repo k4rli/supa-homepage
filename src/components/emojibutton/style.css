@@ -1,14 +1,32 @@
 .emoji-button {
     position: absolute;
-    top: 50%;
-    left: 50%;
-    margin-top: -50px;
-    margin-left: -50px;
     text-align: center;
     font-size: 75px;
     font-family: VCR, Courier New, Courier, Lucida Sans Typewriter, Lucida Typewriter, monospace;
     text-transform: uppercase;
     color: #ABABAB;
+    z-index: 999;
+}
+
+.center {
+    top: 50%;
+    left: 50%;
+    margin-top: -50px;
+    margin-left: -50px;
+}
+
+.top-left {
+    margin: 15px;
+    float: left;
+}
+
+.bottom-right {
+    text-align: right;
+    bottom: 0;
+    font-size: 2em;
+    right: 0;
+    padding-right: 1em;
+    margin-bottom: 2vh !important;
 }
 
 /* .floatingMenuButton {

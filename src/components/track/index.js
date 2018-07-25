@@ -2,14 +2,11 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import Select from 'react-select';
 import { connect } from 'react-redux';
-import ReactHtmlParser, { processNodes, convertNodeToElement, htmlparser2 } from 'react-html-parser';
-import { withStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
 
 import EmojiButton from "../emojibutton";
 import Menu from "../fullpage/menu";
@@ -29,7 +26,8 @@ class Track extends Component {
             loading: false,
             packageName: '',
             code: '',
-            selectedOption: ''
+            selectedOption: '',
+            lang: 'est'
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -38,6 +36,7 @@ class Track extends Component {
         this.toggleMenu = this.toggleMenu.bind(this);
         this.hideMenu = this.hideMenu.bind(this);
         this.mobileOrDesktopApi = this.mobileOrDesktopApi.bind(this);
+        this.createTable = this.createTable.bind(this);
     }
 
     componentWillMount() {
@@ -91,13 +90,12 @@ class Track extends Component {
     // @param code - tracking number
     apiRequest(code) {
         const failedRequest = `<div class="loading-wrapper"><p>Failed to get results.</p></div>`
-        axios.get(`https://cors.io/?https://www.omniva.ee/api/search.php?search_barcode=${code}&lang=est`)
+        axios.get(`https://omniva-tracking-api-listener.herokuapp.com/track/${code}/${this.state.lang}`)
             .then((res) => {
                 this.setState({ loading: false });
 
                 const result = res.data;
                 const apiResultType = this.mobileOrDesktopApi(result);
-
                 if (apiResultType !== 'invalid') this.props.saveTrackingSearchResults(result);
                 else this.props.saveTrackingSearchResults(failedRequest);
             }).catch(() => {
@@ -154,35 +152,29 @@ class Track extends Component {
     };
 
     createTable(results) {
+        if (results === undefined || results[0] === undefined) return;
         console.log(results);
-        if (results === undefined || results.length === 0) return;
         return (
-            <Paper className='paperwrapper'>
-                <Table className='table-wrapper'>
-                    <TableHead>
-                        {results.headers.map(n => {
-                            return (
-                                <TableRow>
-                                    <TableCell>n[0]</TableCell>
-                                    <TableCell numeric>n[1]</TableCell>
-                                    <TableCell numeric>n[2]</TableCell>
-                                </TableRow>
-                            )
-                        })};
-                    </TableHead>
-                    <TableBody>
-                        {results.rows.map(n => {
-                            return (
-                                <TableRow key='0'>
-                                    <TableCell component="th" scope="row">{n.event}</TableCell>
-                                    <TableCell numeric>{n.date}</TableCell>
-                                    <TableCell numeric>{n.location}</TableCell>
-                                </TableRow>
-                            );
-                        })}
-                    </TableBody>
-                </Table>
-            </Paper>
+
+            <Table className='table-wrapper'>
+                <TableHead>
+                    <TableRow>
+                        {results.headers.map((n, idx) => { return (<TableCell key={idx}>{n}</TableCell>) })}
+                    </TableRow>
+                </TableHead>
+                <TableBody>
+                    {results.rows.map((n, idx) => {
+                        return (
+                            <TableRow key={idx}>
+                                <TableCell key={Math.floor(Math.random() * 250)} component="td">{n.event}</TableCell>
+                                <TableCell key={Math.floor(Math.random() * 250)}>{n.date}</TableCell>
+                                <TableCell key={Math.floor(Math.random() * 250)}>{n.location}</TableCell>
+                            </TableRow>
+                        );
+                    })}
+                </TableBody>
+            </Table>
+
         );
     }
 
@@ -192,7 +184,7 @@ class Track extends Component {
         return (
             <div className="tracking-wrapper">
                 <div className="floatingMenuButton" onMouseDown={this.toggleMenu}>
-                    <EmojiButton text="😂" />
+                    <EmojiButton text="😂" className='top-left'/>
                 </div>
                 <Menu handleMouseDown={this.handleMouseDownOnMenu} menuVisibility={this.state.visible} hideMenu={this.hideMenu} />
                 <div className="tracking-form" onMouseDown={this.hideMenu}>
@@ -214,10 +206,7 @@ class Track extends Component {
                     </form>
                     {this.state.loading
                         ? <Loading />
-                        :
-                        <div className="result">
-                            {this.createTable(this.props.requestResults)}
-                        </div>
+                        : <div className="result">{this.createTable(this.props.requestResults)}</div>
                     }
                 </div>
             </div>
@@ -228,7 +217,7 @@ class Track extends Component {
 function mapStateToProps(state) {
     return {
         trackingCodes: state.trackingCodes,
-        results: state.requestResults
+        requestResults: state.requestResults
     };
 }
 

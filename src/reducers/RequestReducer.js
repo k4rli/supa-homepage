@@ -6,6 +6,7 @@ export default function requestResult(state = initialState.results, action) {
         case 'TRACKING_API_SUCCESS':
             console.log('Saving search results to state');
             const converted = htmlToJson(action.data);
+            if (converted === undefined) return {};
             return {
                 headers: converted[0],
                 rows: converted[1]
