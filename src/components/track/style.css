@@ -79,17 +79,10 @@ input, textarea {
     font-family: inherit;
 }
 
-.react-form>input:-ms-input-placeholder,
-/* IE 10+ */
-
-.react-form>input:-moz-placeholder,
-/* Firefox 18- */
-
-.react-form>input::-moz-placeholder,
-/* Firefox 19+ */
-
-.react-form>input::-webkit-input-placeholder {
-    /* Chrome/Opera/Safari */
+.react-form>input:-ms-input-placeholder, /* IE 10+ */
+.react-form>input:-moz-placeholder, /* Firefox 18- */
+.react-form>input::-moz-placeholder, /* Firefox 19+ */
+.react-form>input::-webkit-input-placeholder { /* Chrome/Opera/Safari */
     font-family: VCR, Courier New, Courier, Lucida Sans Typewriter, Lucida Typewriter, monospace;
     text-transform: uppercase;
     color: #ababab;
@@ -109,9 +102,7 @@ input, textarea {
         min-height: 95vh;
         z-index: 0;
     }
-    .tracking-form td:nth-child(3), .tracking-form th:nth-child(3) {
-        display: none;
-    }
+    
     .tracking-wrapper {
         min-width: 100vw;
         min-height: 100vh;
@@ -120,27 +111,6 @@ input, textarea {
     .result {
         max-height: 60vh;
     }
-}
-
-.definition-list h3 {
-    display: none;
-}
-
-dd:nth-child(8), dd:nth-child(10), .accent-color:nth-child(7), .accent-color:nth-child(9) {
-    display: none;
-}
-
-.single-block dt {
-    font-weight: 600;
-}
-
-.single-block dd {
-    margin-left: 0;
-}
-
-.single-block {
-    width: 90%;
-    padding: 3px;
 }
 
 .prev-select {
