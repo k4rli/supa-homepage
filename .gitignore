@@ -22,3 +22,4 @@ yarn-error.log*
 
 build/*
 build/asset-manifest.json
+yarn.lock
