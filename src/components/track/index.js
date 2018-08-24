@@ -12,10 +12,10 @@ import EmojiButton from "../emojibutton";
 import Menu from "../fullpage/menu";
 import codes from '../../data/tracking_codes';
 import Loading from '../loadinganimation';
+import NoResults from './noresults';
 
 import { saveTrackingSearchResults, saveTrackingCodes, addNewTrackingCode, resetResults } from '../../actions/UserActions';
 
-import 'react-select/dist/react-select.css';
 import './style.css';
 
 class Track extends Component {
@@ -27,7 +27,8 @@ class Track extends Component {
             packageName: '',
             code: '',
             selectedOption: '',
-            lang: 'est'
+            lang: 'est',
+            firstSearchDone: false
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -63,7 +64,7 @@ class Track extends Component {
                 selectedOption,
                 loading: true
             });
-            this.apiRequest(selectedOption.value, selectedOption.label);
+            this.handleApiData(selectedOption.value, selectedOption.label);
         }
     };
 
@@ -80,32 +81,56 @@ class Track extends Component {
     // Handles tracking number API request submission.
     handleSubmit = (e) => {
         e.preventDefault();
-        if (this.state.code.length < 5) return true;
+        if (this.state.code.length < 5) {
+            return true;
+        }
 
         this.addToCodes();
-        this.apiRequest(this.state.code);
+        this.handleApiData(this.state.code);
     };
 
-    // Requests tracking information from Omniva API.
-    // @param code - tracking number
-    apiRequest(code) {
+    handleApiData(code, label) {
+        const req = this.apiRequest(code, label);
         const failedRequest = `<div class="loading-wrapper"><p>Failed to get results.</p></div>`
-        axios.get(`https://omniva-tracking-api-listener.herokuapp.com/track/${code}/${this.state.lang}`)
-            .then((res) => {
-                this.setState({ loading: false });
+        req.then((res) => {
+            if (res.status !== undefined) {
+                if (res.status === 200) {
+                    this.setState({
+                        loading: false,
+                        firstSearchDone: true
+                    });
 
-                const result = res.data;
-                const apiResultType = this.mobileOrDesktopApi(result);
-                if (apiResultType !== 'invalid') this.props.saveTrackingSearchResults(result);
-                else this.props.saveTrackingSearchResults(failedRequest);
-            }).catch(() => {
-                this.props.saveTrackingSearchResults(failedRequest);
-            });
+                    const result = res.data;
+                    const apiResultType = this.mobileOrDesktopApi(result);
 
+                    if (apiResultType !== 'invalid') {
+                        this.props.saveTrackingSearchResults(result);
+                    } else {
+                        this.props.saveTrackingSearchResults(failedRequest);
+                    }
+                } else {
+                    this.props.saveTrackingSearchResults(failedRequest);
+                    return false;
+                }
+            }
+        }).catch((err) => {
+            this.props.saveTrackingSearchResults(failedRequest);
+            return false;
+        });
+
+        // reset state
         this.setState({
             code: '',
             packageName: ''
         });
+    }
+
+    // Requests tracking information from Omniva API.
+    // @param code - tracking number
+    async apiRequest(code) {
+
+        const res = await axios.get(`https://omniva-tracking-api-listener.herokuapp.com/track/${code}/${this.state.lang}`);
+        return await res;
     }
 
     // Adds new tracking number to previous searches if it isn't already there.
@@ -137,7 +162,9 @@ class Track extends Component {
 
     // On small screens, clicking on menu will close it.
     handleMouseDownOnMenu(e) {
-        if (window.innerWidth <= 768) this.toggleMenu();
+        if (window.innerWidth <= 768) {
+            this.toggleMenu();
+        }
         e.stopPropagation();
     };
 
@@ -152,8 +179,7 @@ class Track extends Component {
     };
 
     createTable(results) {
-        if (results === undefined || results[0] === undefined) return;
-        console.log(results);
+        if (results === undefined || results.rows === undefined) return <NoResults />;
         return (
 
             <Table className='table-wrapper'>
@@ -166,9 +192,10 @@ class Track extends Component {
                     {results.rows.map((n, idx) => {
                         return (
                             <TableRow key={idx}>
-                                <TableCell key={Math.floor(Math.random() * 250)} component="td">{n.event}</TableCell>
-                                <TableCell key={Math.floor(Math.random() * 250)}>{n.date}</TableCell>
-                                <TableCell key={Math.floor(Math.random() * 250)}>{n.location}</TableCell>
+                                {/* not very good keys */}
+                                <TableCell key={Math.floor(Math.random() * 1000)} component="td">{n.event}</TableCell>
+                                <TableCell key={Math.floor(Math.random() * 1000)}>{n.date}</TableCell>
+                                <TableCell key={Math.floor(Math.random() * 1000)}>{n.location}</TableCell>
                             </TableRow>
                         );
                     })}
@@ -184,7 +211,7 @@ class Track extends Component {
         return (
             <div className="tracking-wrapper">
                 <div className="floatingMenuButton" onMouseDown={this.toggleMenu}>
-                    <EmojiButton text="😂" className='top-left'/>
+                    <EmojiButton text="😂" className='top-left' />
                 </div>
                 <Menu handleMouseDown={this.handleMouseDownOnMenu} menuVisibility={this.state.visible} hideMenu={this.hideMenu} />
                 <div className="tracking-form" onMouseDown={this.hideMenu}>
@@ -204,10 +231,11 @@ class Track extends Component {
                             searchable={false}
                         />
                     </form>
-                    {this.state.loading
+                    {this.state.firstSearchDone ? (
+                        this.state.loading
                         ? <Loading />
                         : <div className="result">{this.createTable(this.props.requestResults)}</div>
-                    }
+                    ) : ''}
                 </div>
             </div>
         );
