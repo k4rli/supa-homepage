@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import io from 'socket.io-client';
 import NavigateTo from '../../navlink';
 import OAuth from '../../../auth/OAuth';
-import { API_URL } from '../../../auth/config';
+import API_URL from '../../../auth/config';
 
 const socket = io(API_URL);
 const providers = ['twitter', 'google'];

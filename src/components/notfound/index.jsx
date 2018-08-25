@@ -14,5 +14,5 @@ export default class NotFound extends Component {
                 </div>
             </div>
         );
-    };
-};
+    }
+}
