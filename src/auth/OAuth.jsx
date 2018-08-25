@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import '../components/login/fonts/font-awesome.min.css';
 
-import API_URL from './config';
+import { API_URL } from './config';
 import './style.css';
 import { signInWithOAuth, saveCurrentAuthProvider, destroyOAuthSession } from '../actions/UserActions';
 
