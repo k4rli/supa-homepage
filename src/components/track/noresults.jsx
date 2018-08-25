@@ -4,12 +4,12 @@ import ThinkingEmoji from './thinking_emoji.png';
 class NoResults extends Component {
     render() {
         return (
-           <div className='noResultsContainer'>
+           <div className="noResultsContainer">
                <img
-                    id='noResultsImg'
+                    id="noResultsImg"
                     src={ThinkingEmoji}
-                    alt='No results found'
-                />
+                    alt="No results found"
+               />
            </div>
         );
     }

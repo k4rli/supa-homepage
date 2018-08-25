@@ -8,6 +8,8 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 
+import { API_URL } from '../../auth/config';
+
 import EmojiButton from "../emojibutton";
 import Menu from "../fullpage/menu";
 import codes from '../../data/tracking_codes';
@@ -77,9 +79,7 @@ class Track extends Component {
      * @returns true if exists
     */
     checkIfAlreadyTrackingCodeInCodes(code) {
-        return this.props.trackingCodes.find((existingCode) => {
-            return existingCode.value === code;
-        });
+        return this.props.trackingCodes.find(existingCode => existingCode.value === code);
     };
 
     // Handles tracking number API request submission.
@@ -137,8 +137,7 @@ class Track extends Component {
     // Requests tracking information from Omniva API.
     // @param code - tracking number
     async apiRequest(code) {
-        const res = await axios.get(`https://omniva-tracking-api-listener.herokuapp.com/track/${code}/${this.state.lang}`);
-        return await res;
+        return await axios.get(`${API_URL}/track/${code}/${this.state.lang}`);
     }
 
     // Adds new tracking number to previous searches if it isn't already there.
