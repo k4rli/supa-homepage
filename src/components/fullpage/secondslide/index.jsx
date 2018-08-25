@@ -3,10 +3,11 @@ import './style.css';
 
 export default class SecondSlide extends Component {
 	render() {
+		const { text } = this.props;
 		return (
 			<div>
-				<p id="epictext">{this.props.text}</p>
-                <div id="epic-ye-slide"></div>
+				<p id="epictext">{text}</p>
+                <div id="epic-ye-slide" />
 			</div>
 		);
 	}

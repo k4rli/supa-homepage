@@ -40,6 +40,10 @@
 
 @media only screen and (max-width: 768px) {
     .emoji-button {
+        font-size: 5em;
+    }
+
+    .top-left {
         font-size: 3em;
     }
     /* .floatingMenuButton {

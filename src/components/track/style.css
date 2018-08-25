@@ -13,7 +13,6 @@ b {
 
 .result {
     /* margin-top: 3vh; */
-    max-height: 45vh !important;
     word-wrap: break-word;
     overflow-y: auto;
     overflow-x: hidden;
@@ -22,7 +21,6 @@ b {
 
 .result>table {
     width: 100%;
-    max-height: 45vh !important;
     margin: 0;
 }
 
@@ -53,6 +51,8 @@ b {
     min-height: 330px;
     box-shadow: 0 15px 35px rgba(50, 50, 93, .1), 0 5px 15px rgba(0, 0, 0, .07);
     word-wrap: break-spaces;
+    display: flex;
+    flex-direction: column;
 }
 
 .tracking-form h1 {
@@ -79,10 +79,17 @@ input, textarea {
     font-family: inherit;
 }
 
-.react-form>input:-ms-input-placeholder, /* IE 10+ */
-.react-form>input:-moz-placeholder, /* Firefox 18- */
-.react-form>input::-moz-placeholder, /* Firefox 19+ */
-.react-form>input::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+.react-form>input:-ms-input-placeholder,
+/* IE 10+ */
+
+.react-form>input:-moz-placeholder,
+/* Firefox 18- */
+
+.react-form>input::-moz-placeholder,
+/* Firefox 19+ */
+
+.react-form>input::-webkit-input-placeholder {
+    /* Chrome/Opera/Safari */
     font-family: VCR, Courier New, Courier, Lucida Sans Typewriter, Lucida Typewriter, monospace;
     text-transform: uppercase;
     color: #ababab;
@@ -101,15 +108,17 @@ input, textarea {
         padding: 5vh 5vw 0 5vw;
         min-height: 95vh;
         z-index: 0;
+        display: flex;
+        flex-direction: column;
     }
-    
     .tracking-wrapper {
         min-width: 100vw;
         min-height: 100vh;
         overflow-x: hidden;
     }
     .result {
-        max-height: 60vh;
+        margin-bottom: 2vh;
+        max-height: unset !important;
     }
 }
 
@@ -172,3 +181,23 @@ input, textarea {
         transform: rotate(360deg);
     }
 }
+
+/* tbody>tr>td:nth-child(1),
+tbody>tr>td:nth-child(3) {
+    -webkit-hyphens: auto;
+    -moz-hyphens: auto;
+    hyphens: auto;
+    -ms-word-break: break-all;
+    word-break: break-all;
+    word-wrap: break-word;
+    text-overflow: ellipsis;
+} */
+
+/* tbody>tr>td:nth-child(3) {
+    -webkit-hyphens: auto;
+    -moz-hyphens: auto;
+    hyphens: auto;
+    -ms-word-break: break-all;
+    word-break: break-all;
+    word-wrap: break-word;
+} */
