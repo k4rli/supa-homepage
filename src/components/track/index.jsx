@@ -230,7 +230,7 @@ class Track extends Component {
                             value={value}
                             onChange={this.handleSelectChange}
                             options={this.props.trackingCodes}
-                            searchable={false}
+                            isSearchable={false}
                         />
                     </form>
                     {this.state.firstSearchDone ? (
