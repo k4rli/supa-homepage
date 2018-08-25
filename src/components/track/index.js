@@ -89,8 +89,13 @@ class Track extends Component {
         this.handleApiData(this.state.code);
     };
 
+    /**
+     * Requests data from API and dispatches results.
+     * @param {String} code - tracking code
+     * @param {String} label - name for tracking code; @TODO make use of this
+     */
     handleApiData(code, label) {
-        const req = this.apiRequest(code, label);
+        const req = this.apiRequest(code);
         const failedRequest = `<div class="loading-wrapper"><p>Failed to get results.</p></div>`
         req.then((res) => {
             if (res.status !== undefined) {
@@ -128,7 +133,6 @@ class Track extends Component {
     // Requests tracking information from Omniva API.
     // @param code - tracking number
     async apiRequest(code) {
-
         const res = await axios.get(`https://omniva-tracking-api-listener.herokuapp.com/track/${code}/${this.state.lang}`);
         return await res;
     }
@@ -181,7 +185,6 @@ class Track extends Component {
     createTable(results) {
         if (results === undefined || results.rows === undefined) return <NoResults />;
         return (
-
             <Table className='table-wrapper'>
                 <TableHead>
                     <TableRow>
@@ -201,7 +204,6 @@ class Track extends Component {
                     })}
                 </TableBody>
             </Table>
-
         );
     }
 

@@ -4,7 +4,9 @@ import htmlToJson from '../components/htmltojson';
 export default function requestResult(state = initialState.results, action) {
     switch (action.type) {
         case 'TRACKING_API_SUCCESS':
-            console.log('Saving search results to state');
+            if (process.env.NODE_ENV === 'development') {
+                console.log('Saving search results to state');
+            }
             const converted = htmlToJson(action.data);
             if (converted === undefined) return {};
             return {

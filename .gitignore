@@ -23,3 +23,7 @@ yarn-error.log*
 build/*
 build/asset-manifest.json
 yarn.lock
+auth_server/node_modules
+auth_server/certs/*
+.env
+auth_server/.env

@@ -1,4 +1,5 @@
 export default {
     trackingCodes: [],
-    results: {}
+    results: {},
+    userAccount: {}
 }
