@@ -5,7 +5,7 @@ import FullPage from './components/fullpage';
 import Login from './components/login';
 import Signup from './components/signup';
 import Track from './components/track';
-import Markdown from "./components/markdown";
+import Markdown from './components/markdown';
 
 export default class App extends Component {
     render() {

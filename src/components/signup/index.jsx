@@ -2,7 +2,10 @@ import React, { Component } from 'react';
 import './style.css';
 import Menu from '../fullpage/menu';
 import EmojiButton from '../emojibutton';
-import NavigateTo from '../navlink'
+import NavigateTo from '../navlink';
+
+/*global window*/
+
 class Signup extends Component {
     constructor(props) {
         super(props);
@@ -22,34 +25,35 @@ class Signup extends Component {
         this.hideMenu = this.hideMenu.bind(this);
     }
 
-    handleChange = (e) => {
-        let newState = {};
+    handleChange(e) {
+        const newState = {};
         newState[e.target.name] = e.target.value;
-        this.setState(newState)
-    };
+        this.setState(newState);
+    }
 
 
-    handleSubmit = (e, message) => {
+    handleSubmit(e) {
         e.preventDefault();
 
-        let formData = {
-            formUsername: this.state.username,
-            formEmail: this.state.email,
-            formPassword: this.state.password
+        const { username, email, password } = this.state;
+        const formData = {
+            formUsername: username,
+            formEmail: email,
+            formPassword: password
         };
 
-        if (formData.formUsername.length < 1 
-            || formData.formEmail.length < 1 
+        if (formData.formUsername.length < 1
+            || formData.formEmail.length < 1
             || formData.formPassword.length < 1) {
-            return true
+            return;
         }
 
         this.setState({
             username: '',
             email: '',
             password: ''
-        })
-    };
+        });
+    }
 
     handleMouseDown(e) {
         this.toggleMenu();
@@ -62,7 +66,9 @@ class Signup extends Component {
     }
 
     toggleMenu() {
-        this.setState({ visible: !this.state.visible });
+        this.setState((prevState) => {
+            visible: !prevState.visible
+        });
     }
 
     hideMenu() {
@@ -70,23 +76,26 @@ class Signup extends Component {
     }
 
     render() {
+        const { visible } = this.state;
+        const { username, password, email } = this.state;
         return (
             <div className="signup-wrapper">
                 <div className="floatingMenuButton" onMouseDown={this.hideMenu}>
                     <EmojiButton handleMouseDown={this.handleMouseDown} text="😂" />
                 </div>
-                <Menu handleMouseDown={this.handleMouseDownOnMenu}
-                    menuVisibility={this.state.visible}
+                <Menu
+handleMouseDown={this.handleMouseDownOnMenu}
+                    menuVisibility={visible}
                     hideMenu={this.hideMenu}
                 />
                 <div className="signup-form" onMouseDown={this.hideMenu}>
-                    <form className='react-form' onSubmit={this.handleSubmit}>
+                    <form className="react-form" onSubmit={this.handleSubmit}>
                         <h1>join</h1>
-                        <input id='formName' className='form-input' name='username' type='text' required onChange={this.handleChange} placeholder='username' value={this.state.username} />
-                        <input id='formEmail' className='form-input' name='email' type='email' required onChange={this.handleChange} placeholder='email' value={this.state.email} />
-                        <input id='formSubject' className='form-input' name='password' type='password' required onChange={this.handleChange} placeholder='password' value={this.state.password} />
+                        <input id="formName" className="form-input" name="username" type="text" required onChange={this.handleChange} placeholder="username" value={username} />
+                        <input id="formEmail" className="form-input" name="email" type="email" required onChange={this.handleChange} placeholder="email" value={email} />
+                        <input id="formSubject" className="form-input" name="password" type="password" required onChange={this.handleChange} placeholder="password" value={password} />
 
-                        <input id='formButton' className='btn' type='submit' value='Sign up' />
+                        <input id="formButton" className="btn" type="submit" value="Sign up" />
                     </form>
                     <NavigateTo className="logInRedirect" to="/login">log in instead</NavigateTo>
                 </div>

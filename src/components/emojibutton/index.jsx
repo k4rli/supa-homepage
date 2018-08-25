@@ -16,10 +16,9 @@ export default class EmojiButton extends Component {
             <p
                 className={emojiButtonClassName}
                 id={id}
-                onMouseDown={handleMouseDown}>
-
+                onMouseDown={handleMouseDown}
+            >
                 {text}
-
             </p>
         );
     }

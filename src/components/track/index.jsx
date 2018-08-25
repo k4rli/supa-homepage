@@ -10,15 +10,19 @@ import TableRow from '@material-ui/core/TableRow';
 
 import { API_URL } from '../../auth/config';
 
-import EmojiButton from "../emojibutton";
-import Menu from "../fullpage/menu";
+import EmojiButton from '../emojibutton';
+import Menu from '../fullpage/menu';
 import codes from '../../data/tracking_codes';
 import Loading from '../loadinganimation';
 import NoResults from './noresults';
 
-import { saveTrackingSearchResults, saveTrackingCodes, addNewTrackingCode, resetResults } from '../../actions/UserActions';
+import {
+ saveTrackingSearchResults, saveTrackingCodes, addNewTrackingCode, resetResults
+} from '../../actions/UserActions';
 
 import './style.css';
+
+/*global window*/
 
 class Track extends Component {
     constructor(props) {
@@ -36,6 +40,7 @@ class Track extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleMouseDown = this.handleMouseDown.bind(this);
         this.handleMouseDownOnMenu = this.handleMouseDownOnMenu.bind(this);
+        this.handleSelectChange = this.handleSelectChange.bind(this);
         this.toggleMenu = this.toggleMenu.bind(this);
         this.hideMenu = this.hideMenu.bind(this);
         this.mobileOrDesktopApi = this.mobileOrDesktopApi.bind(this);
@@ -43,28 +48,29 @@ class Track extends Component {
     }
 
     componentWillMount() {
-        this.props.resetResults();
+        resetResults();
         axios.get('https://www.supa.ee/json/tracking_codes.json')
             .then((res) => {
-                this.props.saveTrackingCodes(JSON.parse(res.data));
+                saveTrackingCodes(JSON.parse(res.data));
                 console.log('Succesfully fetched codes.');
                 console.log(res.data);
             }).catch(() => {
-                this.props.saveTrackingCodes(codes);
+                saveTrackingCodes(codes);
                 console.log('Failed to fetch codes, fallback to local data.');
                 console.log(codes);
             });
     }
 
     // Updates state on tracking number input changes.
-    handleChange = (e) => {
-        let newState = {};
-        newState[e.target.name] = e.target.value;
-        this.setState(newState)
-    };
+    handleChange(e) {
+        const newState = {};
+        const { name, value } = e.target;
+        newState[name] = value;
+        this.setState(newState);
+    }
 
     // Dropdown menu selection handling.
-    handleSelectChange = (selectedOption) => {
+    handleSelectChange(selectedOption) {
         if (selectedOption !== null) {
             this.setState({
                 selectedOption,
@@ -72,26 +78,28 @@ class Track extends Component {
             });
             this.handleApiData(selectedOption.value, selectedOption.label);
         }
-    };
+    }
 
     /* Checks if this tracking number has already been searched.
      * This is to avoid multiple entries of same number in previous searches dropdown menu.
      * @returns true if exists
     */
     checkIfAlreadyTrackingCodeInCodes(code) {
-        return this.props.trackingCodes.find(existingCode => existingCode.value === code);
-    };
+        const { trackingCodes } = this.props;
+        return trackingCodes.find(existingCode => existingCode.value === code);
+    }
 
     // Handles tracking number API request submission.
-    handleSubmit = (e) => {
+    handleSubmit(e) {
         e.preventDefault();
-        if (this.state.code.length < 5) {
-            return true;
+        const { code } = this.state;
+        if (code.length < 5) {
+            return;
         }
 
         this.addToCodes();
-        this.handleApiData(this.state.code);
-    };
+        this.handleApiData(code);
+    }
 
     /**
      * Requests data from API and dispatches results.
@@ -100,7 +108,8 @@ class Track extends Component {
      */
     handleApiData(code, label) {
         const req = this.apiRequest(code);
-        const failedRequest = `<div class="loading-wrapper"><p>Failed to get results.</p></div>`
+        const { saveTrackingSearchResults } = this.props;
+        const failedRequest = '<div class="loading-wrapper"><p>Failed to get results.</p></div>';
         req.then((res) => {
             if (res.status !== undefined) {
                 if (res.status === 200) {
@@ -113,17 +122,18 @@ class Track extends Component {
                     const apiResultType = this.mobileOrDesktopApi(result);
 
                     if (apiResultType !== 'invalid') {
-                        this.props.saveTrackingSearchResults(result);
+                        saveTrackingSearchResults(result);
                     } else {
-                        this.props.saveTrackingSearchResults(failedRequest);
+                        saveTrackingSearchResults(failedRequest);
                     }
                 } else {
-                    this.props.saveTrackingSearchResults(failedRequest);
+                    saveTrackingSearchResults(failedRequest);
                     return false;
                 }
             }
         }).catch((err) => {
-            this.props.saveTrackingSearchResults(failedRequest);
+            saveTrackingSearchResults(failedRequest);
+            console.log(`Error occurred: ${err}`);
             return false;
         });
 
@@ -137,16 +147,17 @@ class Track extends Component {
     // Requests tracking information from Omniva API.
     // @param code - tracking number
     async apiRequest(code) {
-        return await axios.get(`${API_URL}/track/${code}/${this.state.lang}`);
+        const { lang } = this.state;
+        return axios.get(`${API_URL}/track/${code}/${lang}`);
     }
 
     // Adds new tracking number to previous searches if it isn't already there.
     addToCodes() {
-        const code = this.state.code;
+        const { code, packageName } = this.state;
         if (!this.checkIfAlreadyTrackingCodeInCodes(code)) {
-            this.props.addNewTrackingCode({
-                label: this.state.packageName,
-                value: this.state.code
+            addNewTrackingCode({
+                label: packageName,
+                value: code
             });
         }
     }
@@ -156,16 +167,20 @@ class Track extends Component {
     // On large displays, they give a table with results, but on small screens, a description list is given.
     mobileOrDesktopApi(result) {
         let resultType = 'invalid';
-        if (result.indexOf('dt') !== -1) resultType = 'mobile';
-        if (result.indexOf('th') !== -1) resultType = 'desktop';
+        if (result.indexOf('dt') !== -1) {
+            resultType = 'mobile';
+        }
+        if (result.indexOf('th') !== -1) {
+            resultType = 'desktop';
+        }
         return resultType;
-    };
+    }
 
     // Opens menu on event
     handleMouseDown(e) {
         this.toggleMenu();
         e.stopPropagation();
-    };
+    }
 
     // On small screens, clicking on menu will close it.
     handleMouseDownOnMenu(e) {
@@ -173,58 +188,61 @@ class Track extends Component {
             this.toggleMenu();
         }
         e.stopPropagation();
-    };
+    }
 
     // Changes menu state.
     toggleMenu() {
-        this.setState({ visible: !this.state.visible });
+        this.setState(prevState => ({ visible: !prevState.visible }));
     }
 
     // Hides menu.
     hideMenu() {
         this.setState({ visible: false });
-    };
+    }
 
     createTable(results) {
-        if (results === undefined || results.rows === undefined) return <NoResults />;
+        if (results === undefined || results.rows === undefined) {
+            return <NoResults />;
+        }
         return (
-            <Table className='table-wrapper'>
+            <Table className="table-wrapper">
                 <TableHead>
                     <TableRow>
-                        {results.headers.map((n, idx) => { return (<TableCell key={idx}>{n}</TableCell>) })}
+                        {results.headers.map((n, idx) => (<TableCell key={idx}>{n}</TableCell>))}
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {results.rows.map((n, idx) => {
-                        return (
+                    {results.rows.map((n, idx) => (
                             <TableRow key={idx}>
                                 {/* not very good keys */}
                                 <TableCell key={Math.floor(Math.random() * 1000)} component="td">{n.event}</TableCell>
                                 <TableCell key={Math.floor(Math.random() * 1000)}>{n.date}</TableCell>
                                 <TableCell key={Math.floor(Math.random() * 1000)}>{n.location}</TableCell>
                             </TableRow>
-                        );
-                    })}
+                        ))}
                 </TableBody>
             </Table>
         );
     }
 
     render() {
-        const { selectedOption } = this.state;
+        const {
+ selectedOption, code, packageName, visible, firstSearchDone, loading 
+} = this.state;
+        const { requestResults, trackingCodes } = this.props;
         const value = selectedOption && selectedOption.value;
         return (
             <div className="tracking-wrapper">
                 <div className="floatingMenuButton" onMouseDown={this.toggleMenu}>
-                    <EmojiButton text="😂" className='top-left' />
+                    <EmojiButton text="😂" className="top-left" />
                 </div>
-                <Menu handleMouseDown={this.handleMouseDownOnMenu} menuVisibility={this.state.visible} hideMenu={this.hideMenu} />
+                <Menu handleMouseDown={this.handleMouseDownOnMenu} menuVisibility={visible} hideMenu={this.hideMenu} />
                 <div className="tracking-form" onMouseDown={this.hideMenu}>
-                    <form className='react-form' onSubmit={this.handleSubmit}>
+                    <form className="react-form" onSubmit={this.handleSubmit}>
                         <h1>track</h1>
-                        <input id='formName' className='form-input' name='packageName' type='text' onChange={this.handleChange} placeholder='name for your package' value={this.state.packageName} />
-                        <input id='formCode' className='form-input' name='code' type='text' required onChange={this.handleChange} placeholder='tracking number' value={this.state.code} />
-                        <input id='formButton' className='btn' type='submit' value='track' />
+                        <input id="formName" className="form-input" name="packageName" type="text" onChange={this.handleChange} placeholder="name for your package" value={packageName} />
+                        <input id="formCode" className="form-input" name="code" type="text" required onChange={this.handleChange} placeholder="tracking number" value={code} />
+                        <input id="formButton" className="btn" type="submit" value="track" />
                         <Select
                             className="prev-select"
                             placeholder="previous searches"
@@ -232,20 +250,20 @@ class Track extends Component {
                             name="form-field-name"
                             value={value}
                             onChange={this.handleSelectChange}
-                            options={this.props.trackingCodes}
+                            options={trackingCodes}
                             isSearchable={false}
                         />
                     </form>
-                    {this.state.firstSearchDone ? (
-                        this.state.loading
+                    {firstSearchDone ? (
+                        loading
                         ? <Loading />
-                        : <div className="result">{this.createTable(this.props.requestResults)}</div>
+                        : <div className="result">{this.createTable(requestResults)}</div>
                     ) : ''}
                 </div>
             </div>
         );
-    };
-};
+    }
+}
 
 function mapStateToProps(state) {
     return {
@@ -257,10 +275,10 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
     return {
         addNewTrackingCode: code => dispatch(addNewTrackingCode(code)),
-        saveTrackingCodes: codes => dispatch(saveTrackingCodes(codes)),
+        saveTrackingCodes: trackingCodes => dispatch(saveTrackingCodes(trackingCodes)),
         saveTrackingSearchResults: data => dispatch(saveTrackingSearchResults(data)),
         resetResults: () => dispatch(resetResults())
-    }
+    };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Track);
