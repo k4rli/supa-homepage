@@ -8,10 +8,14 @@ import './style.css'
 import { signInWithOAuth, saveCurrentAuthProvider, destroyOAuthSession } from '../actions/UserActions';
 
 class OAuth extends Component {
-    state = {
-        user: {},
-        disabled: ''
+    constructor(props) {
+        super(props);
+        this.state = {
+            user: {},
+            disabled: ''
+        }
     }
+
 
     componentDidMount() {
         const { socket, provider } = this.props

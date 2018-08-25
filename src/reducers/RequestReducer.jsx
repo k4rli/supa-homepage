@@ -7,7 +7,8 @@ export default function requestResult(state = initialState.results, action) {
             if (process.env.NODE_ENV === 'development') {
                 console.log('Saving search results to state');
             }
-            const converted = htmlToJson(action.data);
+            const { data } = action;
+            const converted = htmlToJson(data);
             if (converted === undefined) return {};
             return {
                 headers: converted[0],
@@ -20,4 +21,4 @@ export default function requestResult(state = initialState.results, action) {
         default:
             return state;
     }
-};
+}

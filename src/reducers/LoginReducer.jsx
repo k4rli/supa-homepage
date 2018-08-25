@@ -8,7 +8,7 @@ export default function login(state = initialState.userAccount, action) {
             return {
                 ...state,
                 provider: action.provider
-            }
+            };
         case 'DESTROY_OAUTH_SESSION': // there is no actual session
             return {};
         default:
