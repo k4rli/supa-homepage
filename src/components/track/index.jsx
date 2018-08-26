@@ -52,7 +52,7 @@ class Track extends Component {
         resetResults();
         axios.get('https://www.supa.ee/json/tracking_codes.json')
             .then((res) => {
-                saveTrackingCodes(JSON.parse(res.data));
+                saveTrackingCodes(res.data);
                 console.log('Succesfully fetched codes.');
                 console.log(res.data);
             }).catch((err) => {
