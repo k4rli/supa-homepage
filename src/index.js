@@ -9,6 +9,8 @@ import App from './App';
 import Store from './store';
 import { saveState } from './localstorage';
 
+/*global document*/
+
 const storeInstance = Store();
 
 storeInstance.subscribe(() => {
@@ -19,7 +21,7 @@ storeInstance.subscribe(() => {
 
 ReactDOM.render((
     <Provider store={storeInstance}>
-        <BrowserRouter>
+        <BrowserRouter basename={process.env.DEPLOY_BASE_URL === 'gh-pages' ? "/supa-homepage" : "/"}>
             <App />
         </BrowserRouter>
     </Provider>),
