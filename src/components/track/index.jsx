@@ -48,13 +48,15 @@ class Track extends Component {
     }
 
     componentWillMount() {
+        const { saveTrackingCodes, resetResults } = this.props;
         resetResults();
         axios.get('https://www.supa.ee/json/tracking_codes.json')
             .then((res) => {
                 saveTrackingCodes(JSON.parse(res.data));
                 console.log('Succesfully fetched codes.');
                 console.log(res.data);
-            }).catch(() => {
+            }).catch((err) => {
+                console.log(`Error: ${err}`)
                 saveTrackingCodes(codes);
                 console.log('Failed to fetch codes, fallback to local data.');
                 console.log(codes);

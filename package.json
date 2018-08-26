@@ -2,6 +2,7 @@
   "name": "supa-homepage-root",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://supa.ee",
   "dependencies": {
     "@material-ui/core": "^1.4.0",
     "axios": "^0.18.0",
@@ -39,6 +40,5 @@
     "eslint-plugin-react": "^7.11.1",
     "gh-pages": "^1.2.0",
     "redux-devtools-extension": "^2.13.5"
-  },
-  "homepage": "https://karliyo.github.io/supa-homepage/"
+  }
 }

@@ -67,6 +67,7 @@ class Signup extends Component {
 
     toggleMenu() {
         this.setState((prevState) => {
+            // eslint-disable-next-line
             visible: !prevState.visible
         });
     }
