@@ -9,6 +9,7 @@
     "bootstrap": "^4.0.0",
     "fullpage-react": "^3.0.29",
     "history": "^4.7.2",
+    "mysql": "^2.16.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-floating-button-menu": "^1.0.8",
