@@ -1,13 +1,13 @@
-export const saveTrackingSearchResults = (data) => { return { type: 'TRACKING_API_SUCCESS', data } }
+export const saveTrackingSearchResults = data => ({ type: 'TRACKING_API_SUCCESS', data });
 
-export const saveTrackingCodes = (codes) => { return { type: 'SAVE_TRACKING_CODES', codes } }
+export const saveTrackingCodes = codes => ({ type: 'SAVE_TRACKING_CODES', codes });
 
-export const addNewTrackingCode = (code) => { return { type: 'ADD_NEW_TRACKING_CODE', code } }
+export const addNewTrackingCode = code => ({ type: 'ADD_NEW_TRACKING_CODE', code });
 
-export const resetResults = () => { return { type: 'RESET_API_RESULTS' } };
+export const resetResults = () => ({ type: 'RESET_API_RESULTS' });
 
-export const signInWithOAuth = (login) => { return { type: 'OAUTH2_SIGN_IN', login } }
+export const signInWithOAuth = login => ({ type: 'OAUTH2_SIGN_IN', login });
 
-export const saveCurrentAuthProvider = (provider) => { return { type: 'SAVE_OAUTH_PROVIDER', provider }}
+export const saveCurrentAuthProvider = provider => ({ type: 'SAVE_OAUTH_PROVIDER', provider });
 
-export const destroyOAuthSession = () => { return { type: 'DESTROY_OAUTH_SESSION' }}
+export const destroyOAuthSession = () => ({ type: 'DESTROY_OAUTH_SESSION' });
