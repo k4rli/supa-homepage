@@ -9,8 +9,6 @@ import App from './App';
 import Store from './store';
 import { saveState } from './localstorage';
 
-/*global document*/
-
 const storeInstance = Store();
 
 storeInstance.subscribe(() => {
@@ -19,13 +17,17 @@ storeInstance.subscribe(() => {
     );
 });
 
-ReactDOM.render((
+/* eslint-disable react/jsx-filename-extension */
+const element = (
     <Provider store={storeInstance}>
         <BrowserRouter>
             <App />
         </BrowserRouter>
-    </Provider>),
-    document.getElementById('root')
+    </Provider>
 );
+/* eslint-enable react/jsx-filename-extension */
+const container = document.getElementById('root');
+
+ReactDOM.render(element, container);
 
 registerServiceWorker();
