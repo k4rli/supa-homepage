@@ -8,3 +8,4 @@ script:
   - npm run build
 on:
   branch: master
+  tags: true
