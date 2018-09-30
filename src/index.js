@@ -21,7 +21,7 @@ storeInstance.subscribe(() => {
 
 ReactDOM.render((
     <Provider store={storeInstance}>
-        <BrowserRouter basename={process.env.DEPLOY_BASE_URL === 'gh-pages' ? "/supa-homepage" : "/"}>
+        <BrowserRouter>
             <App />
         </BrowserRouter>
     </Provider>),
