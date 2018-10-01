@@ -1,5 +1,5 @@
 import initialState from './InitialState';
-import htmlToJson from '../components/htmltojson';
+import htmlToJson from '../helpers/htmltojson';
 
 export default function requestResult(state = initialState.results, action) {
     switch (action.type) {
@@ -9,11 +9,14 @@ export default function requestResult(state = initialState.results, action) {
             }
             const { data } = action;
             const converted = htmlToJson(data);
-            if (converted === undefined) return {};
-            return {
-                headers: converted[0],
-                rows: converted[1]
-            };
+            return converted === undefined
+                ? {}
+                : (
+                    {
+                        headers: converted[0],
+                        rows: converted[1]
+                    }
+                );
         case 'TRACKING_API_FAILURE':
             return action.data;
         case 'RESET_API_RESULTS':
