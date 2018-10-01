@@ -17,7 +17,7 @@ import Loading from '../loadinganimation';
 import NoResults from './noresults';
 
 import {
- saveTrackingSearchResults, saveTrackingCodes, addNewTrackingCode, resetResults
+    saveTrackingSearchResults, saveTrackingCodes, addNewTrackingCode, resetResults
 } from '../../actions/UserActions';
 
 import './style.css';
@@ -48,16 +48,19 @@ class Track extends Component {
     }
 
     componentWillMount() {
-        const { saveTrackingCodes, resetResults } = this.props;
-        resetResults();
-        axios.get('https://www.supa.ee/json/tracking_codes.json')
+        const {
+            saveTrackingCodes: saveTrackingCodesAction,
+            resetResults: resetResultsAction
+        } = this.props;
+        resetResultsAction();
+        axios.get('https://supa.ee/json/tracking_codes.json')
             .then((res) => {
-                saveTrackingCodes(res.data);
+                saveTrackingCodesAction(res.data);
                 console.log('Succesfully fetched codes.');
                 console.log(res.data);
             }).catch((err) => {
-                console.log(`Error: ${err}`)
-                saveTrackingCodes(codes);
+                console.log(`Error: ${err}`);
+                resetResultsAction(codes);
                 console.log('Failed to fetch codes, fallback to local data.');
                 console.log(codes);
             });
@@ -110,7 +113,9 @@ class Track extends Component {
      */
     handleApiData(code, label) {
         const req = this.apiRequest(code);
-        const { saveTrackingSearchResults } = this.props;
+        const {
+            saveTrackingSearchResults: saveTrackingSearchResultsAction
+        } = this.props;
         const failedRequest = '<div class="loading-wrapper"><p>Failed to get results.</p></div>';
         req.then((res) => {
             if (res.status !== undefined) {
@@ -124,17 +129,18 @@ class Track extends Component {
                     const apiResultType = this.mobileOrDesktopApi(result);
 
                     if (apiResultType !== 'invalid') {
-                        saveTrackingSearchResults(result);
+                        saveTrackingSearchResultsAction(result);
                     } else {
-                        saveTrackingSearchResults(failedRequest);
+                        saveTrackingSearchResultsAction(failedRequest);
                     }
-                } else {
-                    saveTrackingSearchResults(failedRequest);
-                    return false;
+                    return true;
                 }
+                saveTrackingSearchResultsAction(failedRequest);
+                return false;
             }
+            return false;
         }).catch((err) => {
-            saveTrackingSearchResults(failedRequest);
+            saveTrackingSearchResultsAction(failedRequest);
             console.log(`Error occurred: ${err}`);
             return false;
         });
@@ -166,7 +172,10 @@ class Track extends Component {
 
     // Checks which type of data is returned by API.
     // For some reason, they give different data based on display resolution.
-    // On large displays, they give a table with results, but on small screens, a description list is given.
+    // On large displays, they give a table with results,
+    // but on small screens, a description list is given.
+    //
+    /* eslint-disable class-methods-use-this */
     mobileOrDesktopApi(result) {
         let resultType = 'invalid';
         if (result.indexOf('dt') !== -1) {
@@ -177,6 +186,7 @@ class Track extends Component {
         }
         return resultType;
     }
+    /* eslint-enable class-methods-use-this */
 
     // Opens menu on event
     handleMouseDown(e) {
@@ -202,6 +212,7 @@ class Track extends Component {
         this.setState({ visible: false });
     }
 
+    /* eslint-disable class-methods-use-this */
     createTable(results) {
         if (results === undefined || results.rows === undefined) {
             return <NoResults />;
@@ -215,22 +226,32 @@ class Track extends Component {
                 </TableHead>
                 <TableBody>
                     {results.rows.map((n, idx) => (
-                            <TableRow key={idx}>
-                                {/* not very good keys */}
-                                <TableCell key={Math.floor(Math.random() * 1000)} component="td">{n.event}</TableCell>
-                                <TableCell key={Math.floor(Math.random() * 1000)}>{n.date}</TableCell>
-                                <TableCell key={Math.floor(Math.random() * 1000)}>{n.location}</TableCell>
-                            </TableRow>
-                        ))}
+                        <TableRow key={idx}>
+                            {/* not very good keys */}
+                            <TableCell
+                                key={Math.floor(Math.random() * 1000)}
+                                component="td"
+                            >
+                                {n.event}
+                            </TableCell>
+                            <TableCell key={Math.floor(Math.random() * 1000)}>
+                                {n.date}
+                            </TableCell>
+                            <TableCell key={Math.floor(Math.random() * 1000)}>
+                                {n.location}
+                            </TableCell>
+                        </TableRow>
+                    ))}
                 </TableBody>
             </Table>
         );
     }
+    /* eslint-enable class-methods-use-this */
 
     render() {
         const {
- selectedOption, code, packageName, visible, firstSearchDone, loading 
-} = this.state;
+            selectedOption, code, packageName, visible, firstSearchDone, loading
+        } = this.state;
         const { requestResults, trackingCodes } = this.props;
         const value = selectedOption && selectedOption.value;
         return (
@@ -238,12 +259,33 @@ class Track extends Component {
                 <div className="floatingMenuButton" onMouseDown={this.toggleMenu}>
                     <EmojiButton text="😂" className="top-left" />
                 </div>
-                <Menu handleMouseDown={this.handleMouseDownOnMenu} menuVisibility={visible} hideMenu={this.hideMenu} />
+                <Menu
+                    handleMouseDown={this.handleMouseDownOnMenu}
+                    menuVisibility={visible}
+                    hideMenu={this.hideMenu}
+                />
                 <div className="tracking-form" onMouseDown={this.hideMenu}>
                     <form className="react-form" onSubmit={this.handleSubmit}>
                         <h1>track</h1>
-                        <input id="formName" className="form-input" name="packageName" type="text" onChange={this.handleChange} placeholder="name for your package" value={packageName} />
-                        <input id="formCode" className="form-input" name="code" type="text" required onChange={this.handleChange} placeholder="tracking number" value={code} />
+                        <input
+                            id="formName"
+                            className="form-input"
+                            name="packageName"
+                            type="text"
+                            onChange={this.handleChange}
+                            placeholder="name for your package"
+                            value={packageName}
+                        />
+                        <input
+                            id="formCode"
+                            className="form-input"
+                            name="code"
+                            type="text"
+                            required
+                            onChange={this.handleChange}
+                            placeholder="tracking number"
+                            value={code}
+                        />
                         <input id="formButton" className="btn" type="submit" value="track" />
                         <Select
                             className="prev-select"
@@ -258,8 +300,8 @@ class Track extends Component {
                     </form>
                     {firstSearchDone ? (
                         loading
-                        ? <Loading />
-                        : <div className="result">{this.createTable(requestResults)}</div>
+                            ? <Loading />
+                            : <div className="result">{this.createTable(requestResults)}</div>
                     ) : ''}
                 </div>
             </div>
