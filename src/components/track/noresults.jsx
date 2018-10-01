@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import ThinkingEmoji from './thinking_emoji.png';
+import ThinkingEmoji from '../emojibutton/images/thinking_emoji.svg';
 
 class NoResults extends Component {
     render() {

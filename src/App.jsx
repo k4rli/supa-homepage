@@ -11,7 +11,8 @@ class App extends Component {
             <div>
                 <Switch>
                     <Route exact path="/" component={FullPage} />
-                    <Route path="/track" component={Track} />
+                    <Route exact path="/track" component={Track} />
+                    <Route exact path="/track/:code" component={Track} />
                     <Route exact path="/markdown" component={Markdown} />
                 </Switch>
             </div>

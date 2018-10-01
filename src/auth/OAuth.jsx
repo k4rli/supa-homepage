@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { API_URL } from './config';
 import { signInWithOAuth, saveCurrentAuthProvider, destroyOAuthSession } from '../actions/UserActions';
 
-import '../components/login/fonts/font-awesome.min.css';
+import '../components/css/font-awesome/fontawesome.min.css';
 import './style.css';
 
 class OAuth extends Component {

@@ -48,6 +48,10 @@ class Track extends Component {
     }
 
     componentWillMount() {
+        const { match } = this.props;
+        if (match.params.code) {
+            this.handleApiData(match.params.code, 'hahahaha');
+        }
         const {
             saveTrackingCodes: saveTrackingCodesAction,
             resetResults: resetResultsAction
@@ -57,12 +61,12 @@ class Track extends Component {
             .then((res) => {
                 saveTrackingCodesAction(res.data);
                 console.log('Succesfully fetched codes.');
-                console.log(res.data);
+                // console.log(res.data);
             }).catch((err) => {
                 console.log(`Error: ${err}`);
                 resetResultsAction(codes);
                 console.log('Failed to fetch codes, fallback to local data.');
-                console.log(codes);
+                // console.log(codes);
             });
     }
 

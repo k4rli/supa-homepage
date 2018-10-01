@@ -42,8 +42,6 @@ class Menu extends Component {
         }
         // <h2><NavigateTo to="/gymfinder">gyms</NavigateTo></h2>
         // <h2><NavigateTo to="/markdown">mrkdwn</NavigateTo></h2>
-        // <h2><NavigateTo to="/signup">signup</NavigateTo></h2>
-        // <h2><NavigateTo to="/login">login</NavigateTo></h2>
         return (
             <div id="left-side-menu" role="presentation" onMouseDown={handleMouseDown} className={visibility}>
                 <div className="auths-wrapper">
