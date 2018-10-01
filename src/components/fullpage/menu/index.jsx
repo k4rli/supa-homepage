@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import './style.css';
 import { connect } from 'react-redux';
 
 import io from 'socket.io-client';
 import NavigateTo from '../../navlink';
 import OAuth from '../../../auth/OAuth';
 import { API_URL } from '../../../auth/config';
+
+import './style.css';
 
 const socket = io(API_URL);
 const providers = ['twitter', 'google'];
@@ -31,7 +32,8 @@ class Menu extends Component {
                             socket={socket}
                         />
                     ))
-                ));
+                )
+        );
 
         const { menuVisibility, handleMouseDown } = this.props;
         let visibility = 'hide';

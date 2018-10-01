@@ -1,13 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import '../components/login/fonts/font-awesome.min.css';
-
 import { API_URL } from './config';
-import './style.css';
 import { signInWithOAuth, saveCurrentAuthProvider, destroyOAuthSession } from '../actions/UserActions';
 
-/*global window*/
+import '../components/login/fonts/font-awesome.min.css';
+import './style.css';
 
 class OAuth extends Component {
     constructor(props) {
@@ -17,7 +15,6 @@ class OAuth extends Component {
         };
     }
 
-
     componentDidMount() {
         const { socket, provider } = this.props;
 
@@ -26,9 +23,12 @@ class OAuth extends Component {
                 this.popup.close();
             }
 
-            const { signInWithOAuth, saveCurrentAuthProvider } = this.props;
-            signInWithOAuth(user);
-            saveCurrentAuthProvider(provider);
+            const {
+                signInWithOAuth: signInWithOAuthAction,
+                saveCurrentAuthProvider: saveCurrentAuthProviderAction
+            } = this.props;
+            signInWithOAuthAction(user);
+            saveCurrentAuthProviderAction(provider);
         });
     }
 
@@ -52,8 +52,9 @@ class OAuth extends Component {
 
         return window.open(url, '',
             `toolbar=no, location=no, directories=no, status=no, menubar=no, 
-      scrollbars=no, resizable=no, copyhistory=no, width=${width}, 
-      height=${height}, top=${top}, left=${left}`);
+            scrollbars=no, resizable=no, copyhistory=no, width=${width}, 
+            height=${height}, top=${top}, left=${left}
+        `);
     }
 
     startAuth() {
@@ -66,7 +67,11 @@ class OAuth extends Component {
     }
 
     render() {
-        const { login, provider, destroyOAuthSession } = this.props;
+        const {
+            login,
+            provider,
+            destroyOAuthSession: destroyOAuthSessionAction
+        } = this.props;
         const { name, photo } = login;
         const { disabled } = this.state;
         const atSymbol = provider === 'twitter' ? '@' : '';
@@ -76,7 +81,7 @@ class OAuth extends Component {
                 {(name)
                     ? (
                         <div className="card">
-                            <img src={photo} alt={name} onClick={destroyOAuthSession} />
+                            <img src={photo} alt={name} onClick={destroyOAuthSessionAction} />
                             <h4>{`${atSymbol}${name}`}</h4>
                         </div>
                     )
