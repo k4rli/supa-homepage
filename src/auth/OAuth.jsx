@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { API_URL } from './config';
 import { signInWithOAuth, saveCurrentAuthProvider, destroyOAuthSession } from '../actions/UserActions';
 
-import '../components/css/font-awesome/css/fontawesome.min.css';
 import './style.css';
 
 class OAuth extends Component {
@@ -92,7 +91,7 @@ class OAuth extends Component {
                                 onClick={this.startAuth.bind(this)}
                                 className={`${provider} ${disabled} button`}
                             >
-                                <i className={`fas fa-${provider}`} />
+                                <i className={`fab fa-${provider}`} />
                             </button>
                         </div>
                     )
