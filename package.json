@@ -6,7 +6,7 @@
   "dependencies": {
     "@material-ui/core": "^3.1.2",
     "axios": "^0.18.0",
-    "bootstrap": "^4.1.2",
+    "bootstrap": "^4.3.1",
     "fullpage-react": "^3.0.29",
     "history": "^4.7.2",
     "react": "^16.2.0",
