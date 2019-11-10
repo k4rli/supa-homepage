@@ -28,3 +28,5 @@ auth_server/certs/*
 .env
 auth_server/.env
 .idea
+
+settings.json
