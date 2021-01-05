@@ -5,7 +5,7 @@
   "homepage": "https://supa.ee",
   "dependencies": {
     "@material-ui/core": "4.6.0",
-    "axios": "0.19.0",
+    "axios": "0.21.1",
     "bootstrap": "4.3.1",
     "fullpage-react": "3.1.0",
     "history": "4.10.1",
